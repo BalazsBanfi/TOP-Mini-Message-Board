@@ -1,0 +1,15 @@
+<%- include('../partials/head') %> <%- include('../partials/header') %>
+<div class="container">
+  <h1>Hi, this is my Mini messageboard</h1>
+  <br /><br />
+  <% messages.forEach((message, index) => { %>
+  <h2>Message from: <%= message.user %></h2>
+  <p>Text: <%= message.text %></p>
+  <p>Added: <%= message.added.toLocaleDateString() %></p>
+  <a href="/<%= index %>">Message details</a>
+
+  <hr />
+  <% }) %>
+</div>
+
+<%- include('../partials/footer') %>

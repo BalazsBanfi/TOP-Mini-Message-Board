@@ -1,0 +1,34 @@
+<%- include('../partials/head') %> <%- include('../partials/header') %>
+<div class="container">
+  <h1>Write a new message</h1>
+  <form
+    method="POST"
+    action="/new"
+    class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
+  >
+    <label for="userName">Your name:</label><br />
+    <input
+      type="text"
+      id="userName"
+      name="userName"
+      required
+      class="form-control form-control-dark"
+      placeholder="John"
+    /><br />
+    <label for="userMessage">Your message:</label><br />
+    <input
+      type="textarea"
+      id="userMessage"
+      name="userMessage"
+      required
+      class="form-control form-control-dark"
+      rows="6"
+      style="height: 150px"
+      placeholder="Hi there.."
+    /><br /><br />
+
+    <input type="submit" value="OK" />
+  </form>
+</div>
+
+<%- include('../partials/footer') %>
