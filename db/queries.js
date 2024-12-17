@@ -7,7 +7,7 @@ const getAllMessages = async () => {
 }
 
 const insertMessage = async (message) => {
-  await pool.query(`INSERT INTO messages (username, text, added) VALUES (${message.userName}, ${message.userMessage}, ${new Date()})`);
+  await pool.query(`INSERT INTO messages (username, text, added) VALUES ('${message.userName}', '${message.userMessage}', CURRENT_DATE)`);
 }
 
 const deleteMessage = async () => {
