@@ -1,9 +1,17 @@
-const { getDeleteMessages } = require('../../postgresql-tutorial/controllers/userController');
 const pool = require('./pool');
 
 const getAllMessages = async () => {
   const { rows } = await pool.query("SELECT * FROM messages");
   return rows;
+}
+
+const getMessage = async (messageId) => {
+  console.log(messageId, typeof (Number(messageId)))
+
+  //  const { message } = await pool.query(`SELECT * FROM messages WHERE id='1';`);
+  const { message } = await pool.query(`SELECT * FROM messages WHERE username='Bryan'`);
+  console.log(messageId, message)
+  return message;
 }
 
 const insertMessage = async (message) => {
@@ -17,5 +25,6 @@ const deleteMessage = async () => {
 module.exports = {
   getAllMessages,
   insertMessage,
+  getMessage,
   deleteMessage
 };

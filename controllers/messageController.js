@@ -15,10 +15,23 @@ const getMessages = asyncHandler(async (req, res) => {
     });
 })
 
-
 const getNewMessage = asyncHandler(async (req, res) => {
     res.render("pages/new", {
         title: "New message",
+    });
+})
+
+const getMessageById = asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    console.log(id, req.params.id)
+    const message = await db.getMessage(id);
+    console.log('message', message)
+    if (!message) {
+        throw new CustomDbError('No message in database');
+    }
+    res.render("pages/message", {
+        message: message,
+        title: "Selected message",
     });
 })
 
@@ -36,5 +49,4 @@ const getDeleteMessages = asyncHandler(async (req, res) => {
     console.log("messages deleted");
 })
 
-
-module.exports = { getMessages, getNewMessage, postNewMessage, getDeleteMessages };
+module.exports = { getMessages, getNewMessage, getMessageById, postNewMessage, getDeleteMessages };

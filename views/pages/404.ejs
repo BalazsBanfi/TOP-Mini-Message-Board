@@ -1,10 +1,13 @@
 <%- include('../partials/head') %> <%- include('../partials/header') %>
 <div class="container">
-  <h1>Hi, this is my Mini messageboard</h1>
-  <br /><br />
-  <h2>Huups, message is missing</h2>
-  <a href="/">Back</a>
-  <hr />
-</div>
+  <h1>Something went wrong! Please try again later</h1>
+  <p>
+    <%= `Error: ${typeof message != 'undefined' ? message : 'default error'}` %>
+  </p>
 
+  <p>
+    <%= `Error code: ${typeof statusCode != 'undefined' ? statusCode : '404'}`
+    %>
+  </p>
+</div>
 <%- include('../partials/footer') %>
