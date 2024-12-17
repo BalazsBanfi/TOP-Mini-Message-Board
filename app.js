@@ -6,6 +6,7 @@ const { CustomNotFoundError } = require('./errors/CustomErrors');
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use("/", messageRouter);
+
 app.use((req, res, next) => {
     throw new CustomNotFoundError('Error 404, missing page')
 })

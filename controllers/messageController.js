@@ -23,10 +23,11 @@ const getNewMessage = asyncHandler(async (req, res) => {
 })
 
 const postNewMessage = asyncHandler(async (req, res) => {
-    const { username } = req.body;
+    console.log(req.body)
+    const message = req.body;
     await db.insertMessage(message);
     res.redirect("/");
-    console.log("message to be saved: ", req.body.message);
+    console.log("message to be saved: ", req.body.userName, req.body.userMessage);
 })
 
 const getDeleteMessages = asyncHandler(async (req, res) => {
