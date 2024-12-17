@@ -1,9 +1,35 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require("express");
+const app = express();
+const messageRouter = require("./routes/messageRouter");
+const { CustomNotFoundError } = require('./errors/CustomErrors');
 
+app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
-app.set('view engine', 'ejs')
+app.use("/", messageRouter);
+app.use((req, res, next) => {
+    throw new CustomNotFoundError('Error 404, missing page')
+})
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
+
+
+// Every thrown error in the application or the previous middleware function calling `next` with an error as an argument will eventually go to this middleware function
+app.use((err, req, res, next) => {
+    console.error(err);
+    // We can now specify the `err.statusCode` that exists in our custom error class and if it does not exist it's probably an internal server error
+    // res.status(err.statusCode || 500).send(err.message);
+    res.status(err.statusCode || 500).render("pages/404", {
+        title: "Error",
+        statusCode: err.statusCode,
+        message: err.message
+    });
+});
+
+
+/*
 
 const messages = [
     {
@@ -18,40 +44,4 @@ const messages = [
     }
 ];
 
-app.get('/', (req, res) => {
-    res.render('pages/index', {
-        messages: messages,
-        title: "Mini messageboard"
-    })
-})
-app.get('/new', (req, res) => {
-    res.render('pages/form', {
-        messages: messages,
-        title: "New message"
-    })
-})
-
-app.get('/:id', (req, res) => {
-    if (messages[req.params.id] !== undefined) {
-        res.render('pages/message', {
-            messages: messages,
-            title: "One message",
-            messageId: req.params.id
-        })
-    } else {
-        res.render('pages/404')
-    }
-}
-)
-
-app.post('/new', (req, res) => {
-    let userMessage = req.body.userMessage;
-    let userName = req.body.userName;
-    messages.unshift({ text: userMessage, user: userName, added: new Date() });
-    res.redirect('/')
-})
-
-
-app.listen(port, () => {
-    console.log(`App listening at port ${port}`)
-})
+*/

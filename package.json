@@ -5,13 +5,17 @@
   "main": "index.js",
   "scripts": {
     "start": "node app",
-    "dev": "node --watch app"
+    "dev": "node --watch app",
+    "dbPop": "node ./db/populatedb"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "express-async-handler": "^1.2.0",
+    "pg": "^8.13.1"
   }
 }
