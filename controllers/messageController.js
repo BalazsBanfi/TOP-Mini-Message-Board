@@ -1,5 +1,5 @@
 const db = require('../db/queries');
-const asyncHandler = require('express-async-handler')
+const asyncHandler = require('express-async-handler');
 const { CustomDbError } = require('../errors/CustomErrors');
 
 const getMessages = asyncHandler(async (req, res) => {
@@ -19,7 +19,7 @@ const getNewMessage = asyncHandler(async (req, res) => {
         title: "New message",
     });
 })
-
+/*
 const getMessageById = asyncHandler(async (req, res) => {
     console.log(req.params.id)
     const messageById = await db.getMessage(req.params.id);
@@ -34,9 +34,18 @@ const getMessageById = asyncHandler(async (req, res) => {
     }
 })
 
+*/
+
+const getMessageById = asyncHandler(async (req, res) => {
+    const message = await db.getMessage(req.params.id);
+    res.render("pages/message", {
+        messages: message,
+        title: "Selected message",
+    });
+})
+
 const postNewMessage = asyncHandler(async (req, res) => {
-    const message = req.body;
-    await db.insertMessage(message);
+    await db.insertMessage(req.body.userName, req.body.userMessage, new Date());
     res.redirect("/");
 })
 
