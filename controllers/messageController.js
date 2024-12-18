@@ -2,7 +2,6 @@ const db = require('../db/queries');
 const asyncHandler = require('express-async-handler')
 const { CustomDbError } = require('../errors/CustomErrors');
 
-
 const getMessages = asyncHandler(async (req, res) => {
     const messages = await db.getAllMessages();
     console.log("Messages: ", messages);
@@ -22,31 +21,28 @@ const getNewMessage = asyncHandler(async (req, res) => {
 })
 
 const getMessageById = asyncHandler(async (req, res) => {
-    const id = req.params.id;
-    console.log(id, req.params.id)
-    const message = await db.getMessage(id);
-    console.log('message', message)
-    if (!message) {
+    console.log(req.params.id)
+    const messageById = await db.getMessage(req.params.id);
+    if (typeof messageById[0] != "undefined") {
+        console.log('req params: ', req.params, 'id: ', req.params.id, 'message: ', messageById);
+        res.render("pages/message", {
+            messages: messageById[0],
+            title: "Selected message",
+        });
+    } else {
         throw new CustomDbError('No message in database');
     }
-    res.render("pages/message", {
-        message: message,
-        title: "Selected message",
-    });
 })
 
 const postNewMessage = asyncHandler(async (req, res) => {
-    console.log(req.body)
     const message = req.body;
     await db.insertMessage(message);
     res.redirect("/");
-    console.log("message to be saved: ", req.body.userName, req.body.userMessage);
 })
 
 const getDeleteMessages = asyncHandler(async (req, res) => {
     await db.deleteMessages();
     res.redirect("/");
-    console.log("messages deleted");
 })
 
 module.exports = { getMessages, getNewMessage, getMessageById, postNewMessage, getDeleteMessages };

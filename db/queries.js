@@ -6,12 +6,8 @@ const getAllMessages = async () => {
 }
 
 const getMessage = async (messageId) => {
-  console.log(messageId, typeof (Number(messageId)))
-
-  //  const { message } = await pool.query(`SELECT * FROM messages WHERE id='1';`);
-  const { message } = await pool.query(`SELECT * FROM messages WHERE username='Bryan'`);
-  console.log(messageId, message)
-  return message;
+  const { rows } = await pool.query(`SELECT * FROM messages WHERE id=${messageId};`);
+  return rows;
 }
 
 const insertMessage = async (message) => {

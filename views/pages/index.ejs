@@ -8,7 +8,7 @@
   <p>Text: <%= message.text %></p>
   <p>Text: <%= typeof(message.id) %></p>
   <p>Added: <%= message.added.toLocaleDateString() %></p>
-  <a href="/<%= message.id %>">Message details</a>
+  <a href="<%= `message/${message.id}` %>">Message details</a>
 
   <hr />
   <% }) %>

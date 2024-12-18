@@ -2,10 +2,10 @@
 <div class="container">
   <h1>Hi, this is my Mini messageboard</h1>
   <br /><br />
-  <% const message = messages[messageId] %>
-  <h2>Message from: <%= message.username %></h2>
-  <p>Text: <%= message.text %></p>
-  <p>Added: <%= message.added.toLocaleDateString() %></p>
+  <% const message = messages.id %>
+  <h2>Message from: <%= messages.username %></h2>
+  <p>Text: <%= messages.text %></p>
+  <p>Added: <%= messages.added.toLocaleDateString() %></p>
   <a href="/">Back</a>
   <hr />
 </div>
