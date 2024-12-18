@@ -23,6 +23,7 @@ async function main() {
     user: process.env.PGUSER,
     password: process.env.PGPASSWORD,
     database: process.env.PGDATABASE,
+    ssl: true
   });
   await client.connect();
   await client.query(SQL);
