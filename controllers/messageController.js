@@ -83,7 +83,6 @@ const postNewMessage = [
     })
 ];
 
-
 const getDeleteMessages = asyncHandler(async (req, res) => {
     await db.deleteMessages();
     res.redirect("/");
