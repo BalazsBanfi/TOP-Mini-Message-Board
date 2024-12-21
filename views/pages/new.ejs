@@ -1,6 +1,8 @@
 <%- include('../partials/head') %> <%- include('../partials/header') %>
+
 <div class="container">
   <h1>Write a new message</h1>
+  <%-include('../partials/errors') %>
   <form
     method="POST"
     action="/new"

@@ -71,14 +71,17 @@ const postNewMessage = [
     (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.render("pages/new", {
+            console.log(errors.array())
+            res.render("pages/new", {
                 title: "New message",
                 errors: errors.array(),
             });
+        } else {
+            const { userName, userMessage } = req.body;
+            db.insertMessage(userName, userMessage, new Date());
+            res.redirect("/");
         }
-        const { userName, userMessage } = req.body;
-        db.insertMessage(userName, userMessage, new Date());
-        res.redirect("/");
+
     }
 ];
 
