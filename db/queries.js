@@ -23,7 +23,7 @@ const insertMessage = async (username, text, date) => {
   await pool.query("INSERT INTO messages (username, text, added) VALUES ($1, $2, $3)", [username, text, date]);
 }
 
-const deleteMessage = async () => {
+const deleteMessages = async () => {
   await pool.query("DELETE FROM messages");
 }
 
@@ -31,5 +31,5 @@ module.exports = {
   getAllMessages,
   insertMessage,
   getMessage,
-  deleteMessage
+  deleteMessages
 };

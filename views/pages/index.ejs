@@ -6,7 +6,6 @@
   <% messages.forEach((message, index) => { %>
   <h2>Message from: <%= message.username %></h2>
   <p>Text: <%= message.text %></p>
-  <p>Text: <%= typeof(message.id) %></p>
   <p>Added: <%= message.added.toLocaleDateString() %></p>
   <a href="<%= `message/${message.id}` %>">Message details</a>
 

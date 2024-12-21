@@ -68,21 +68,19 @@ const postNewMessage = asyncHandler(async (req, res) => {
 
 const postNewMessage = [
     validateUser,
-    (req, res) => {
+    asyncHandler(async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            console.log(errors.array())
             res.render("pages/new", {
                 title: "New message",
                 errors: errors.array(),
             });
         } else {
             const { userName, userMessage } = req.body;
-            db.insertMessage(userName, userMessage, new Date());
+            await db.insertMessage(userName, userMessage, new Date());
             res.redirect("/");
         }
-
-    }
+    })
 ];
 
 
