@@ -7,11 +7,17 @@
   <p>Text: <%= messages.text %></p>
   <p>Added: <%= messages.added.toLocaleDateString() %></p>
   <form
-    method="POST"
-    action="/message"
+    action="/message/delete/<%= messages.id %>"
+    method="GET"
     class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
   >
-    <input type="submit" value="delete" />
+    <button
+      type="submit"
+      class="btn btn-danger"
+      onclick="return confirm('Are you sure you want to delete this message?');"
+    >
+      Delete
+    </button>
   </form>
 
   <a href="/">Back</a>
