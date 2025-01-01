@@ -7,7 +7,7 @@
   <p>Text: <%= messages.text %></p>
   <p>Added: <%= messages.added.toLocaleDateString() %></p>
   <form
-    action="/message/delete/<%= messages.id %>"
+    action="/message/<%= messages.id %>/delete"
     method="GET"
     class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"
   >

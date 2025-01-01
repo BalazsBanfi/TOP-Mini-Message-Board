@@ -26,7 +26,6 @@ const validateUser = [
 
 const getMessages = asyncHandler(async (req, res) => {
   const messages = await db.getAllMessages();
-  console.log("Messages: ", messages);
   if (!messages.length) {
     throw new CustomDbError("No messages in database");
   }
@@ -36,41 +35,26 @@ const getMessages = asyncHandler(async (req, res) => {
   });
 });
 
-const getNewMessage = asyncHandler(async (req, res) => {
+const getNewMessage = (req, res) => {
   res.render("pages/new", {
     title: "New message",
   });
-});
-/*
-const getMessageById = asyncHandler(async (req, res) => {
-    console.log(req.params.id)
-    const messageById = await db.getMessage(req.params.id);
-    if (typeof messageById[0] != "undefined") {
-        console.log('req params: ', req.params, 'id: ', req.params.id, 'message: ', messageById);
-        res.render("pages/message", {
-            messages: messageById[0],
-            title: "Selected message",
-        });
-    } else {
-        throw new CustomDbError('No message in database');
-    }
-})
-
-*/
+};
 
 const getMessageById = asyncHandler(async (req, res) => {
-  const message = await db.getMessage(req.params.id);
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) {
+    throw new CustomDbError("No message in database");
+  }
+  const message = await db.getMessage(id);
+  if (message == undefined) {
+    throw new CustomDbError("No message in database");
+  }
   res.render("pages/message", {
     messages: message,
     title: "Selected message",
   });
 });
-/*
-const postNewMessage = asyncHandler(async (req, res) => {
-    await db.insertMessage(req.body.userName, req.body.userMessage, new Date());
-    res.redirect("/");
-})
-*/
 
 const postNewMessage = [
   validateUser,
@@ -90,13 +74,13 @@ const postNewMessage = [
 ];
 
 const getDeleteMessageById = asyncHandler(async (req, res) => {
-  console.log(req.params, req.params.id);
-  await db.deleteMessageById(req.params.id);
+  const { id } = req.params;
+  await db.deleteMessageById(id);
   res.redirect("/");
 });
 
 const getDeleteMessages = asyncHandler(async (req, res) => {
-  await db.deleteMessages(req.params);
+  await db.deleteMessages();
   res.redirect("/");
 });
 

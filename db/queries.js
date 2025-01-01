@@ -7,23 +7,19 @@ const getAllMessages = async () => {
   return rows;
 };
 
-const getMessage = asyncHandler(async (messageId) => {
+const getMessage = async (messageId) => {
   const { rows } = await pool.query("SELECT * FROM messages WHERE id= $1", [
     messageId,
   ]);
-  console.log(rows);
-  if (rows.length < 1) {
-    throw new CustomDbError("No messages in database");
-  }
   return rows[0];
-});
+};
 
-const insertMessage = asyncHandler(async (username, text, date) => {
+const insertMessage = async (username, text, date) => {
   await pool.query(
     "INSERT INTO messages (username, text, added) VALUES ($1, $2, $3)",
     [username, text, date]
   );
-});
+};
 
 const deleteMessageById = asyncHandler(async (messageId) => {
   await pool.query("DELETE FROM messages WHERE id = $1", [messageId]);

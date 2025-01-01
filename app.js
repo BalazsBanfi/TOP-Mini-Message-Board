@@ -7,6 +7,7 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use("/", messageRouter);
 
+// default error handler if page not found in router
 app.use((req, res, next) => {
     throw new CustomNotFoundError('Error 404, missing page')
 })
