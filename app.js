@@ -15,8 +15,8 @@ app.use((req, res, next) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+    console.log(`http://localhost:3000`);
 });
-
 
 // Every thrown error in the application or the previous middleware function calling `next` with an error as an argument will eventually go to this middleware function
 app.use((err, req, res, next) => {
